@@ -1,3 +1,4 @@
+import 'package:demo/sideNav.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -31,26 +32,18 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   List<String> items = ['Dashboard', 'Maps', 'TaskManager', 'Settings'];
-  List<bool> isHighlighted = [true, false, false, false, false];
   String header = "Dashboard";
+  int tempIndex = 0;
 
-  void setHeader(headerItem, index) {
+  void setHeader(index) {
     setState(() {
       header = items[index];
+      tempIndex = index;
     });
-    for (int i = 0; i < isHighlighted.length; i++) {
-      setState(() {
-        if (index == i) {
-          isHighlighted[index] = true;
-        } else {
-          isHighlighted[i] = false;
-        }
-      });
-    }
   }
 
   String getHeader() {
-    return 'Welcome to ' + ' ' + header;
+    return 'Welcome to ${header}';
   }
 
   @override
@@ -70,23 +63,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ),
-        drawer: Drawer(
-            child: ListView.builder(
-            itemCount: items.length,
-            itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () {
-                setHeader(header, index);
-                Navigator.pop(context);
-              },
-              child: Container(
-                color: isHighlighted[index] ? Colors.blue : Colors.white,
-                child: ListTile(
-                  title: Text(items[index]),
-                ),
-              ),
-            );
-          },
-        )));
+        drawer: SideNav(setHeader, tempIndex));
   }
 }
