@@ -1,3 +1,5 @@
+import 'package:demo/dataItem.dart';
+import 'package:demo/dataItems.dart';
 import 'package:demo/sideNav.dart';
 import 'package:flutter/material.dart';
 
@@ -31,13 +33,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<String> items = ['Dashboard', 'Maps', 'TaskManager', 'Settings'];
-  String header = "Dashboard";
+  String header = "birds";
   int tempIndex = 0;
 
-  void setHeader(index) {
+
+  void setHeader(headerItem, index) {
     setState(() {
-      header = items[index];
+      header = headerItem;
       tempIndex = index;
     });
   }
@@ -46,23 +48,21 @@ class _MyHomePageState extends State<MyHomePage> {
     return 'Welcome to ${header}';
   }
 
+  void navigate(BuildContext context){
+    Navigator.of(context).push(MaterialPageRoute(builder: (_){
+      print('navigate');
+      return DataItem(header);
+    }));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
             title: Text(header, style: TextStyle(fontWeight: FontWeight.bold))),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              // Image.asset('assets/blue.png'),
-              Text(
-                getHeader(),
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-        ),
+        body: DataItems(header,navigate),
         drawer: SideNav(setHeader, tempIndex));
   }
+
+
 }

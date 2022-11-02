@@ -7,15 +7,15 @@ class SideNav extends StatefulWidget {
   final int tempIndex;
 
   @override
-  State<SideNav> createState() => SideNavState(this.setHeader,this.tempIndex);
+  State<SideNav> createState() => SideNavState(this.setHeader, this.tempIndex);
 }
 
 class SideNavState extends State<SideNav> {
-  List<String> items = ['Dashboard', 'Maps', 'TaskManager', 'Settings'];
+  List<String> items = ['birds', 'animals', 'books', 'actors'];
   String header = "Dashboard";
   final Function setHeader;
   final int tempIndex;
-  SideNavState(this.setHeader,this.tempIndex) {
+  SideNavState(this.setHeader, this.tempIndex) {
     print(this.tempIndex);
     print('tempindex');
   }
@@ -31,7 +31,7 @@ class SideNavState extends State<SideNav> {
         print(index);
         return GestureDetector(
           onTap: () {
-            setHeader(index);
+            setHeader(items[index], index);
             Navigator.pop(context);
           },
           child: Container(
